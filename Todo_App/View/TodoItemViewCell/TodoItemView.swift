@@ -50,14 +50,21 @@ class TodoItemView: UITableViewCell {
     @IBAction func pressBtnCheck(_ sender: Any) {
         onCheckBtn?()
     }
+    
+    
 
+    
+    
     func configView(todo: Todo) {
    
-        titleLB.text = todo.title
-        if let date = todo.created_at {
-            let df = DateFormatter()
+        titleLB.text = todo.title ?? ""
+        if let timeString = todo.time,
+            let date = parseISODate(timeString){
+            
+           let df = DateFormatter()
+            
             df.locale = Locale(identifier: "en_US_POSIX")
-            df.timeStyle = .short
+            df.dateFormat = "dd/MM/yyyy hh:mm a"
             time.text = df.string(from: date)
         } else {
             time.text = nil
@@ -86,7 +93,7 @@ class TodoItemView: UITableViewCell {
             
             categoryImv.alpha = 0.7
 
-            checkBtn.isEnabled = false
+//            checkBtn.isEnabled = false
         }
 
         
@@ -101,4 +108,12 @@ class TodoItemView: UITableViewCell {
             categoryImv.image = UIImage(systemName: "questionmark.circle")
         }
     }
+    private func parseISODate(_ s: String) -> Date? {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime, .withFractionalSeconds, .withSpaceBetweenDateAndTime]
+        return f.date(from: s)
+    }
+   
+    
 }
+
