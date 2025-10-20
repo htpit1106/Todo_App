@@ -19,6 +19,7 @@ class TodoItemView: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         checkBtn.layer.cornerRadius = 0
+    
         categoryImv.alpha = 1.0
     
         backgroundColor = .white

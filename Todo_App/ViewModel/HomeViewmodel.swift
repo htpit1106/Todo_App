@@ -1,20 +1,17 @@
-//
-//  TodoViewModel.swift
-//  Todo_App
-//
-//  Created by Admin on 10/16/25.
-//
-
 import Foundation
-import Combine
 
+import Combine
 @MainActor
-final class HomeViewmodel: ObservableObject {
-    @Published var todos: [Todo] = []
+class HomeViewmodel: ObservableObject {
+    
+    static let shared = HomeViewmodel()
+    private init() {}
+    
+    @Published var todos: [[Todo]] = [[], []]
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    private let service = SupabaseService.shared
+    private let service = TodoService()
 
     func loadTodos() async {
         isLoading = true
@@ -22,42 +19,60 @@ final class HomeViewmodel: ObservableObject {
 
         do {
             todos = try await service.fetchTodos()
-            
-            print(todos.count)
         } catch {
             errorMessage = "Không thể tải danh sách công việc"
-            print("❌ Fetch error:", error)
+            print("Lỗi fetch:", error)
         }
     }
 
     func addTodo(_ todo: Todo) async {
         do {
             try await service.addTodo(todo)
-            await loadTodos()
+            await loadTodos() // load lại để cập nhật UI
         } catch {
-            errorMessage = "Không thể thêm công việc"
-            print("❌ Add error:", error)
+            print("Loi them task", error)
+        }
+    }
+    
+    
+    @MainActor
+    func toggleCompleted(for todo: Todo) async {
+        do {
+            guard let id = todo.id else {
+                return
+            }
+            try await service.updateCompleted(id: id,  isCompleted: !todo.isCompleted)
+     
+        } catch {
+            print("Lỗi cập nhật trạng thái:", error)
+        }
+    }
+    
+    @MainActor
+    func deleteTodo(_ todo: Todo) async {
+        
+        do {
+            guard let id = todo.id else {
+                return
+            }
+            try await service.deleteTodo(id: id)
+            
+            
+        } catch {
+            print("loi khi xoa: ", error)
+        }
+    }
+    
+    @MainActor
+    
+    func updateTodo (_ todo: Todo) async {
+        do {
+            try await service.updateTodo(todo)
+            await loadTodos()
+            
+        } catch {
+            print("loi update", error)
         }
     }
 
-//    func toggleComplete(todo: Todo) async {
-//        do {
-//            try await service.updateTodoCompletion(
-//                id: todo.id,
-//                isCompleted: !todo.isCompleted
-//            )
-//            await loadTodos()
-//        } catch {
-//            errorMessage = "Không thể cập nhật trạng thái"
-//        }
-//    }
-//
-//    func deleteTodo(id: String) async {
-//        do {
-//            try await service.deleteTodo(id: id)
-//            await loadTodos()
-//        } catch {
-//            errorMessage = "Không thể xóa công việc"
-//        }
-//    }
 }

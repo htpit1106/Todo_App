@@ -8,15 +8,18 @@
 import UIKit
 
 class AddTaskViewController: UIViewController {
+    
     @IBOutlet weak var titleTF: UITextField!
-
     @IBOutlet weak var cupBtn: UIButton!
     @IBOutlet weak var calendarBtn: UIButton!
     @IBOutlet weak var listBtn: UIButton!
     @IBOutlet weak var notesTV: UITextView!
     @IBOutlet weak var timeTF: UITextField!
     @IBOutlet weak var dateTF: UITextField!
-    var onSaveTask: ((Todo) -> Void)?
+    
+    var todoUpdate: Todo?
+    
+    
     private let datePicker = UIDatePicker()
     private let timePicker = UIDatePicker()
     private let dateFormatter: DateFormatter = {
@@ -32,7 +35,9 @@ class AddTaskViewController: UIViewController {
         return df
     }()
 
-    var clickedBtn: String?
+    var category: String!
+
+    var viewModel = HomeViewmodel.shared
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,14 +56,12 @@ class AddTaskViewController: UIViewController {
 
         // UI
         notesTV.layer.backgroundColor = UIColor.white.cgColor
+        configureCategoryButtons()
         setIconTextField(dateTF, iconName: "calendar")
         setIconTextField(timeTF, iconName: "clock")
         setupPickers()
 
-        let now = Date()
-        dateTF.text = dateFormatter.string(from: now)
-        timeTF.text = timeFormatter.string(from: now)
-
+       
         // color placeholder
         titleTF.attributedPlaceholder = NSAttributedString(
             string: "Task Title",
@@ -66,44 +69,122 @@ class AddTaskViewController: UIViewController {
                 NSAttributedString.Key.foregroundColor: UIColor.systemGray2
             ]
         )
+        
+        if let todo = todoUpdate {
+            UIUpdateTask(todo: todo)
+        } else {
+            UIAddTask()
+        }
 
     }
+    
+    // ui add view
+    
+    func UIAddTask() {
+        let now = Date()
+        dateTF.text = dateFormatter.string(from: now)
+        timeTF.text = timeFormatter.string(from: now)
+        category = "list"
+
+    }
+    
+    
+    // func UI update task
+    
+    func UIUpdateTask (todo :Todo) {
+        titleTF.text = todo.title
+        // Parse the stored ISO8601 string back to Date, then format for display
+        if let isoString = todo.time,
+            let date = isoFormatter.date(from: isoString) {
+            timeTF.text = timeFormatter.string(from: date)
+            dateTF.text = dateFormatter.string(from: date)
+        }
+        notesTV.text = todo.content
+        
+        
+        category = todo.category ?? "list"
+            updateCategorySelection()
+        
+    }
+    
 
     // btn save
     @IBAction func onPressSaveBtn(_ sender: Any) {
-        let id = UUID().uuidString
-        let title = titleTF.text
-        // time = date + time
+    
         let pickedDate = datePicker.date
         let pickedTime = timePicker.date
 
-        // Ghép thành 1 Date duy nhất
+ 
         guard let combined = combine(date: pickedDate, time: pickedTime) else {
             return
         }
-        // Định dạng sang ISO 8601
+        // Format date to  ISO 8601 (string)
+        // times = date + time
         let times = isoFormatter.string(from: combined)
-        // Ví dụ: "2025-10-15T09:30:00+07:00" hoặc "2025-10-15T02:30:00Z" nếu set UTC
+        
         let content = notesTV.text
-        let category = clickedBtn
-
+      
         // validate
+        guard let title = titleTF.text, !title.trimmingCharacters(in: .whitespaces).isEmpty else {
+                showAlert(message: "Please enter a task title.")
+                return
+            }
 
-        let newTask = Todo(
-            id: id,
-            title: title,
-            category: category,
-            created_at: isoFormatter.string(from: Date()),
-            content: content,
-            time: times,
-            isCompleted: false
-        )
+            let notes = notesTV.text ?? ""
+            if notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                showAlert(message: "Please enter some notes.")
+                return
+            }
+        
+        
+        if let todo = todoUpdate {
+            todo.title = title
+            todo.time = times
+            todo.content = content
+            todo.category = category
+//            
+            Task {
+                await viewModel.updateTodo(todo)
+                await MainActor.run {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            
+            
+            
+            
+        } else {
+            // add new task
 
-        onSaveTask?(newTask)
-        navigationController?.popViewController(animated: true)
+            let newTask = Todo(
+                title: title,
+                category: category,
+                created_at: Date(),
+                content: content,
+                time: times,
+                isCompleted: false
+            )
+            
+            Task {
+                await viewModel.addTodo(newTask)
+                await MainActor.run {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
 
+        }
+        
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Missing Information", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
+
+    // combine date and time from timeTF and dateTF
+    
     private func combine(date: Date, time: Date) -> Date? {
         let cal = Calendar.current
         let dateComponents = cal.dateComponents(
@@ -140,7 +221,9 @@ class AddTaskViewController: UIViewController {
     // set icon date and time TF
     func setIconTextField(_ textField: UITextField, iconName: String) {
         let icon = UIImageView(image: UIImage(systemName: iconName))
-        icon.tintColor = UIColor.systemPurple
+
+        icon.tintColor = UIColor(red: 74/255.0, green: 55/255.0, blue: 128/255.0, alpha: 1.0)
+
         icon.contentMode = .scaleAspectFit
 
         let iconContainer = UIView(
@@ -195,9 +278,10 @@ class AddTaskViewController: UIViewController {
             action: #selector(timeChanged(_:)),
             for: .valueChanged
         )
-
     }
 
+    
+    // tool bar of (cancel and done) pickerTime
     private func makeToolbarPicker(
         doneSelector: Selector,
         cancelSelector: Selector
@@ -249,28 +333,51 @@ class AddTaskViewController: UIViewController {
         timeTF.text = timeFormatter.string(from: sender.date)
     }
 
-    // su ly click 3 btn
+    // On click 3 btn
 
     @IBAction func onListCategory(_ sender: Any) {
-        clickedBtn = "list"
-        listBtn.alpha = 0.5
-        calendarBtn.alpha = 1.0
-        cupBtn.alpha = 1.0
-
+        category = "list"
+        updateCategorySelection()
     }
 
     @IBAction func onCalendarCategory(_ sender: Any) {
-        clickedBtn = "calendar"
-        listBtn.alpha = 1.0
-        calendarBtn.alpha = 0.5
-        cupBtn.alpha = 1.0
+        category = "calendar"
+        updateCategorySelection()
     }
 
     @IBAction func onCupCategory(_ sender: Any) {
-        clickedBtn = "cup"
-        listBtn.alpha = 1.0
-        calendarBtn.alpha = 1.0
-        cupBtn.alpha = 0.5
+        category = "cup"
+        updateCategorySelection()
     }
-}
 
+    // Configure system buttons to show background color properly
+    private func configureCategoryButtons() {
+        // Ensure buttons use a configuration that respects baseBackgroundColor
+        [listBtn, calendarBtn, cupBtn].forEach { btn in
+            guard let btn = btn else { return }
+            var config = btn.configuration ?? .filled()
+            config.cornerStyle = .capsule
+            // Default colors; will be overridden by updateCategorySelection()
+            config.baseBackgroundColor = .white
+            config.baseForegroundColor = .black
+            btn.configuration = config
+        }
+        updateCategorySelection()
+    }
+
+    // Update selection UI according to category
+    private func updateCategorySelection() {
+        func apply(_ button: UIButton?, selected: Bool) {
+            guard let button = button else { return }
+            var config = button.configuration ?? .filled()
+            config.cornerStyle = .capsule
+            config.baseBackgroundColor = selected ? .black : .white
+            config.baseForegroundColor = selected ? .white : .black
+            button.configuration = config
+        }
+        apply(listBtn, selected: category == "list")
+        apply(calendarBtn, selected: category == "calendar")
+        apply(cupBtn, selected: category == "cup")
+    }
+
+}
