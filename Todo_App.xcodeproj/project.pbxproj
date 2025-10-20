@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8482F8002EA5DAEA00E1809D /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F7FF2EA5DAEA00E1809D /* RxBlocking */; };
-		8482F8022EA5DAEA00E1809D /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8012EA5DAEA00E1809D /* RxBlocking-Dynamic */; };
 		8482F8042EA5DAEA00E1809D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8032EA5DAEA00E1809D /* RxCocoa */; };
-		8482F8062EA5DAEA00E1809D /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8052EA5DAEA00E1809D /* RxCocoa-Dynamic */; };
 		8482F8082EA5DAEA00E1809D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8072EA5DAEA00E1809D /* RxRelay */; };
+		849631362EA620C100AB981B /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 849631352EA620C100AB981B /* Differentiator */; };
+		849631382EA620C100AB981B /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 849631372EA620C100AB981B /* RxDataSources */; };
 		849EA1C42E9CF1EF004DFFC8 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 849EA1C32E9CF1EF004DFFC8 /* Auth */; };
 		849EA1C62E9CF1EF004DFFC8 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 849EA1C52E9CF1EF004DFFC8 /* Functions */; };
 		849EA1C82E9CF1EF004DFFC8 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 849EA1C72E9CF1EF004DFFC8 /* PostgREST */; };
@@ -55,11 +55,11 @@
 				849EA1C62E9CF1EF004DFFC8 /* Functions in Frameworks */,
 				849EA1CE2E9CF1EF004DFFC8 /* Supabase in Frameworks */,
 				849EA1C42E9CF1EF004DFFC8 /* Auth in Frameworks */,
+				849631382EA620C100AB981B /* RxDataSources in Frameworks */,
 				849EA1CC2E9CF1EF004DFFC8 /* Storage in Frameworks */,
-				8482F8062EA5DAEA00E1809D /* RxCocoa-Dynamic in Frameworks */,
+				849631362EA620C100AB981B /* Differentiator in Frameworks */,
 				849EA1CA2E9CF1EF004DFFC8 /* Realtime in Frameworks */,
 				8482F8002EA5DAEA00E1809D /* RxBlocking in Frameworks */,
-				8482F8022EA5DAEA00E1809D /* RxBlocking-Dynamic in Frameworks */,
 				8482F8082EA5DAEA00E1809D /* RxRelay in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,10 +110,10 @@
 				849EA1CB2E9CF1EF004DFFC8 /* Storage */,
 				849EA1CD2E9CF1EF004DFFC8 /* Supabase */,
 				8482F7FF2EA5DAEA00E1809D /* RxBlocking */,
-				8482F8012EA5DAEA00E1809D /* RxBlocking-Dynamic */,
 				8482F8032EA5DAEA00E1809D /* RxCocoa */,
-				8482F8052EA5DAEA00E1809D /* RxCocoa-Dynamic */,
 				8482F8072EA5DAEA00E1809D /* RxRelay */,
+				849631352EA620C100AB981B /* Differentiator */,
+				849631372EA620C100AB981B /* RxDataSources */,
 			);
 			productName = Todo_App;
 			productReference = 845112B52E9C9E7900DD51DE /* Todo_App.app */;
@@ -146,6 +146,7 @@
 			packageReferences = (
 				84DE0E8A2E9CEE1B00B7445A /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				849631342EA620C100AB981B /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 845112B62E9C9E7900DD51DE /* Products */;
@@ -391,6 +392,14 @@
 				minimumVersion = 6.9.0;
 			};
 		};
+		849631342EA620C100AB981B /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		84DE0E8A2E9CEE1B00B7445A /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase/supabase-swift.git";
@@ -407,25 +416,25 @@
 			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		8482F8012EA5DAEA00E1809D /* RxBlocking-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxBlocking-Dynamic";
-		};
 		8482F8032EA5DAEA00E1809D /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		8482F8052EA5DAEA00E1809D /* RxCocoa-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxCocoa-Dynamic";
-		};
 		8482F8072EA5DAEA00E1809D /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
+		};
+		849631352EA620C100AB981B /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 849631342EA620C100AB981B /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		849631372EA620C100AB981B /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 849631342EA620C100AB981B /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 		849EA1C32E9CF1EF004DFFC8 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;

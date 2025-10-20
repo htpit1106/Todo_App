@@ -88,7 +88,7 @@
                                     <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onPressSaveBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Wnn-Zm-pw0"/>
+                                    <action selector="onPressSaveBtn:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="dJ6-uK-JX9"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kwt-eT-Uw9">
@@ -113,7 +113,7 @@
                                     <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onListCategory:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kid-KD-EMU"/>
+                                    <action selector="onListCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="XfP-Qn-g96"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqi-ve-ZBX">
@@ -127,7 +127,7 @@
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onCupCategory:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="IDW-Bh-Hiq"/>
+                                    <action selector="onCupCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="96H-Pt-MIm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nju-1H-IrF">
@@ -141,7 +141,7 @@
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onCalendarCategory:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ixH-Mh-DJ7"/>
+                                    <action selector="onCalendarCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="664-E9-cxn"/>
                                 </connections>
                             </button>
                         </subviews>

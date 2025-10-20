@@ -144,7 +144,7 @@ class AddTaskViewController: UIViewController {
             todo.category = category
 //            
             Task {
-                await viewModel.updateTodo(todo)
+//                await viewModel.updateTodo(todo)
                 await MainActor.run {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -157,6 +157,7 @@ class AddTaskViewController: UIViewController {
             // add new task
 
             let newTask = Todo(
+                id: UUID().uuidString,
                 title: title,
                 category: category,
                 created_at: Date(),
@@ -278,6 +279,11 @@ class AddTaskViewController: UIViewController {
             action: #selector(timeChanged(_:)),
             for: .valueChanged
         )
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
 
     

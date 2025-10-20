@@ -66,9 +66,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Add New Task">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <action selector="onPressAddTask:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bJo-yf-YYJ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -84,7 +81,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="dJF-uP-phd"/>
                     <connections>
-                        <outlet property="addTaskBtn" destination="MxX-Bo-qLx" id="1Gt-Oe-LVs"/>
+                        <outlet property="addTaskBtn" destination="MxX-Bo-qLx" id="HmN-8a-JRb"/>
                         <outlet property="titleAppLB" destination="G6I-Xo-uDz" id="Ive-u2-8La"/>
                         <outlet property="todayLb" destination="c7E-zo-YNa" id="VHc-2Z-LBt"/>
                         <outlet property="todoTableView" destination="6SJ-Jy-2fc" id="cyx-qP-zCe"/>
@@ -99,7 +96,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="Szx-Io-5ft" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zZZ-Bj-rrB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="xmark" catalog="system" backIndicatorTransitionMaskImage="  " id="zZZ-Bj-rrB">
                         <rect key="frame" x="0.0" y="94" width="390" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -114,7 +111,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="  " width="128" height="128"/>
         <image name="header" width="390" height="222"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
