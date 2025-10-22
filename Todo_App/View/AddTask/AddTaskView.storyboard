@@ -87,9 +87,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Save">
                                     <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <action selector="onPressSaveBtn:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="dJ6-uK-JX9"/>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kwt-eT-Uw9">
                                 <rect key="frame" x="16" y="450" width="361" height="200"/>
@@ -113,7 +110,7 @@
                                     <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onListCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="XfP-Qn-g96"/>
+                                    <action selector="onListCategory:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="955-aU-4RN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqi-ve-ZBX">
@@ -127,7 +124,7 @@
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onCupCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="96H-Pt-MIm"/>
+                                    <action selector="onCupCategory:" destination="Y6W-OH-hqX" eventType="touchDown" id="5v5-m4-qJE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nju-1H-IrF">
@@ -141,7 +138,7 @@
                                     <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onCalendarCategory:" destination="Y6W-OH-hqX" eventType="editingDidEndOnExit" id="664-E9-cxn"/>
+                                    <action selector="onCalendarCategory:" destination="Y6W-OH-hqX" eventType="touchDown" id="HTm-2S-Jq7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -185,6 +182,7 @@
                         <outlet property="dateTF" destination="lBd-aC-sUg" id="2aj-0a-1rn"/>
                         <outlet property="listBtn" destination="AR6-HV-q9E" id="u7H-qp-Rh4"/>
                         <outlet property="notesTV" destination="Kwt-eT-Uw9" id="IHf-iR-TEc"/>
+                        <outlet property="saveBtn" destination="Tgv-Ru-rZB" id="UnT-Sx-bTL"/>
                         <outlet property="timeTF" destination="CYY-VY-dNj" id="fqo-Tq-d7V"/>
                         <outlet property="titleTF" destination="bUL-UI-fc3" id="g1G-YU-K21"/>
                     </connections>

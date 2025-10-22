@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8462D34D2EA78624006AB0EE /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8462D34C2EA78624006AB0EE /* IQKeyboardManagerSwift */; };
 		8482F8002EA5DAEA00E1809D /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F7FF2EA5DAEA00E1809D /* RxBlocking */; };
 		8482F8042EA5DAEA00E1809D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8032EA5DAEA00E1809D /* RxCocoa */; };
 		8482F8082EA5DAEA00E1809D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8482F8072EA5DAEA00E1809D /* RxRelay */; };
@@ -21,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		845112B52E9C9E7900DD51DE /* Todo_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8462D3A02EA788A0006AB0EE /* Todo_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,6 +60,7 @@
 				849EA1CC2E9CF1EF004DFFC8 /* Storage in Frameworks */,
 				849631362EA620C100AB981B /* Differentiator in Frameworks */,
 				849EA1CA2E9CF1EF004DFFC8 /* Realtime in Frameworks */,
+				8462D34D2EA78624006AB0EE /* IQKeyboardManagerSwift in Frameworks */,
 				8482F8002EA5DAEA00E1809D /* RxBlocking in Frameworks */,
 				8482F8082EA5DAEA00E1809D /* RxRelay in Frameworks */,
 			);
@@ -71,16 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				849EA2552E9E35CB004DFFC8 /* Todo_App */,
-				845112B62E9C9E7900DD51DE /* Products */,
+				8462D3A02EA788A0006AB0EE /* Todo_App.app */,
 			);
-			sourceTree = "<group>";
-		};
-		845112B62E9C9E7900DD51DE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				845112B52E9C9E7900DD51DE /* Todo_App.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,9 +108,10 @@
 				8482F8072EA5DAEA00E1809D /* RxRelay */,
 				849631352EA620C100AB981B /* Differentiator */,
 				849631372EA620C100AB981B /* RxDataSources */,
+				8462D34C2EA78624006AB0EE /* IQKeyboardManagerSwift */,
 			);
 			productName = Todo_App;
-			productReference = 845112B52E9C9E7900DD51DE /* Todo_App.app */;
+			productReference = 8462D3A02EA788A0006AB0EE /* Todo_App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -147,9 +142,10 @@
 				84DE0E8A2E9CEE1B00B7445A /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */,
 				849631342EA620C100AB981B /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				8462D34B2EA78623006AB0EE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 845112B62E9C9E7900DD51DE /* Products */;
+			productRefGroup = 845112AC2E9C9E7900DD51DE;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -384,6 +380,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8462D34B2EA78623006AB0EE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
 		8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -411,6 +415,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8462D34C2EA78624006AB0EE /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8462D34B2EA78623006AB0EE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		8482F7FF2EA5DAEA00E1809D /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8482F7FE2EA5DAEA00E1809D /* XCRemoteSwiftPackageReference "RxSwift" */;

@@ -65,7 +65,7 @@ class TodoItemView: UITableViewCell {
            let df = DateFormatter()
             
             df.locale = Locale(identifier: "en_US_POSIX")
-            df.dateFormat = "dd/MM/yyyy hh:mm a"
+            df.dateFormat = "hh:mm a"
             time.text = df.string(from: date)
         } else {
             time.text = nil
@@ -111,7 +111,7 @@ class TodoItemView: UITableViewCell {
     }
     private func parseISODate(_ s: String) -> Date? {
         let f = ISO8601DateFormatter()
-        f.formatOptions = [.withInternetDateTime, .withFractionalSeconds, .withSpaceBetweenDateAndTime]
+        f.formatOptions = [.withInternetDateTime, .withFractionalSeconds, ]
         return f.date(from: s)
     }
    
