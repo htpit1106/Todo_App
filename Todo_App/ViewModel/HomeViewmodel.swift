@@ -23,11 +23,11 @@ class HomeViewmodel {
             let calendar = Calendar.current
             let now = Date()
             
-            // 🔹 Chia todo ra
+            // Chia todo ra
             let uncompleted = todos.filter { !$0.isCompleted }
             let completed = todos.filter { $0.isCompleted }
             
-            // 🔹 Gom nhóm các todo chưa hoàn thành theo thời gian
+            // Gom nhóm các todo chưa hoàn thành theo thời gian
             let grouped = Dictionary(grouping: uncompleted) { todo -> String in
                 guard
                     let iso = todo.time,
@@ -36,27 +36,27 @@ class HomeViewmodel {
                     return "No Date"
                 }
                 
-                if date < calendar.startOfDay(for: now) {
+                if date < now {
                     return "Overdue"
                 }
                 if calendar.isDateInToday(date) { return "Today" }
                 if calendar.isDateInTomorrow(date) { return "Tomorrow" }
                 
                 if calendar.isDate(date, equalTo: now, toGranularity: .weekOfYear) {
-                    return "This Week"
+                    return "This week"
                 }
                 if let nextWeek = calendar.date(byAdding: .weekOfYear, value: 1, to: now),
                    calendar.isDate(date, equalTo: nextWeek, toGranularity: .weekOfYear) {
-                    return "Next Week"
+                    return "Next week"
                 }
                 
                 return "Later"
             }
             
-            // 🔹 Thứ tự section mong muốn
+            //  Thứ tự section mong muốn
             let order = ["Overdue", "Today", "Tomorrow", "This week", "Next week", "Later", "No Date"]
             
-            // 🔹 Tạo danh sách section từ group trên
+            // Tạo danh sách section từ group trên
             var sections: [SectionModel<String, Todo>] = []
             
             for title in order {
@@ -71,7 +71,7 @@ class HomeViewmodel {
                 }
             }
             
-            // 🔹 Thêm phần Completed riêng
+            // Thêm phần Completed riêng
             if !completed.isEmpty {
                 sections.append(SectionModel(model: "Completed", items: completed))
             }

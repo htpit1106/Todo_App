@@ -54,9 +54,7 @@ class AddTaskViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-        
         // nav bar appearance
         appearance.configureWithOpaqueBackground()
         appearance.backgroundImage = UIImage(named: "header")
@@ -69,11 +67,11 @@ class AddTaskViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .white
 
         notesTV.layer.backgroundColor = UIColor.white.cgColor
-        configureCategoryButtons()
+        setupCategoryButtons()
         setIconTextField(dateTF, iconName: "calendar")
         setIconTextField(timeTF, iconName: "clock")
         setupPickers()
-      
+
         titleTF.attributedPlaceholder = NSAttributedString(
             string: "Task Title",
             attributes: [
@@ -91,7 +89,6 @@ class AddTaskViewController: UIViewController {
         bindUI()
         bindSave()
     }
-
 
     // MARK: - Bindings
 
@@ -117,7 +114,7 @@ class AddTaskViewController: UIViewController {
         categoryRelay
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
-                self?.updateCategorySelection()
+                self?.setupCategoryButtons()
             })
             .disposed(by: disposeBag)
 
@@ -132,18 +129,17 @@ class AddTaskViewController: UIViewController {
             .bind(to: timeTF.rx.text)
             .disposed(by: disposeBag)
 
-        
-        // Enable save button only when required fields are not empty
-//        Observable.combineLatest(titleRelay, notesRelay)
-//            .map { title, notes in
-//                !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-//                    && !notes.trimmingCharacters(in: .whitespacesAndNewlines)
-//                        .isEmpty
-//            }
-//            .distinctUntilChanged()
-//            .observe(on: MainScheduler.instance)
-//            .bind(to: saveBtn.rx.isHidden)
-//            .disposed(by: disposeBag)
+//         Enable save button only when required fields are not empty
+                Observable.combineLatest(titleRelay, notesRelay)
+                    .map { title, notes in
+                        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                            && !notes.trimmingCharacters(in: .whitespacesAndNewlines)
+                                .isEmpty
+                    }
+                    .distinctUntilChanged()
+                    .observe(on: MainScheduler.instance)
+                    .bind(to: saveBtn.rx.isEnabled)
+                    .disposed(by: disposeBag)
     }
 
     // nut save
@@ -204,7 +200,8 @@ class AddTaskViewController: UIViewController {
                         created_at: Date(),
                         content: notes,
                         time: isoString,
-                        isCompleted: false
+                        isCompleted: false,
+
                     )
 
                     return self.viewModel.addTodoRx(newTodo)
@@ -245,15 +242,11 @@ class AddTaskViewController: UIViewController {
     func UIUpdateTask(todo: Todo) {
         titleTF.text = todo.title
         notesTV.text = todo.content
-        if todo.isCompleted == true {
-            self.title = "Edit Task ✓"
-        } else {
-            self.title = "Edit Task"
-        }
+
+        self.title = "Edit Task"
 
         if let isoString = todo.time, let d = isoFormatter.date(from: isoString)
         {
-            
             datePicker.date = d
             timePicker.date = d
         } else {
@@ -300,7 +293,6 @@ class AddTaskViewController: UIViewController {
         timeTF.spellCheckingType = .no
         timeTF.isUserInteractionEnabled = true
 
-        
         // set style for picker
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -385,30 +377,24 @@ class AddTaskViewController: UIViewController {
         categoryRelay.accept("cup")
     }
 
-    private func configureCategoryButtons() {
-        [listBtn, calendarBtn, cupBtn].forEach { btn in
-            guard let btn = btn else { return }
-            var config = btn.configuration ?? .filled()
-            config.cornerStyle = .capsule
-            config.baseBackgroundColor = .white
-            config.baseForegroundColor = .black
-            btn.configuration = config
-        }
-        updateCategorySelection()
-    }
+    private func setupCategoryButtons() {
+        let buttons: [(UIButton?, String)] = [
+            (listBtn, "list"),
+            (calendarBtn, "calendar"),
+            (cupBtn, "cup"),
+        ]
 
-    private func updateCategorySelection() {
-        func apply(_ button: UIButton?, selected: Bool) {
+        buttons.forEach { (button, category) in
             guard let button = button else { return }
             var config = button.configuration ?? .filled()
             config.cornerStyle = .capsule
+
+            // 🔹 Kiểm tra xem có được chọn không
+            let selected = categoryRelay.value == category
             config.baseBackgroundColor = selected ? .black : .white
             config.baseForegroundColor = selected ? .white : .black
             button.configuration = config
         }
-        apply(listBtn, selected: categoryRelay.value == "list")
-        apply(calendarBtn, selected: categoryRelay.value == "calendar")
-        apply(cupBtn, selected: categoryRelay.value == "cup")
     }
 
     // MARK: - Helpers

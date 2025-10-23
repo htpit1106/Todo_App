@@ -15,15 +15,36 @@ class TodoService {
     private let client = supabase
 
     func fetchTodos() async throws -> [Todo] {
-        try await client
+        guard let user = try? await supabase.auth.session.user else {
+            return []
+        }
+
+        // Use typed decoding via `.value` and align table name with the rest of the service ("todo_list")
+        let todos: [Todo] = try await supabase
             .from("todo_list")
-            .select("*")
+            .select()
+            .eq("user_id", value: user.id)
             .execute()
             .value
+
+        return todos
     }
 
+
     func addTodo(_ todo: Todo) async throws {
-        try await client.from("todo_list").insert(todo).execute()
+        guard let user = try? await supabase.auth.session.user else {
+                throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "No active user"])
+            }
+
+            //  Gắn user_id vào todo
+            var newTodo = todo
+        newTodo.user_id = user.id.uuidString
+
+            //  Thêm vào Supabase
+            try await supabase
+                .from("todo_list")
+                .insert(newTodo)
+                .execute()
     }
     
     func updateCompleted(id: String, isCompleted: Bool) async throws {
@@ -56,3 +77,4 @@ class TodoService {
             .execute()
     }
 }
+

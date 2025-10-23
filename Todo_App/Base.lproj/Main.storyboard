@@ -27,7 +27,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Zu-ER-10K">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="222"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="ZXT-UH-Iko" userLabel="header_imv">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="ZXT-UH-Iko" userLabel="header_imv">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="222"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="October, 11 2025" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-zo-YNa">
@@ -72,6 +72,7 @@
                         <color key="backgroundColor" red="0.94509803921568625" green="0.96078431372549022" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="1Zu-ER-10K" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4n9-EY-aLi"/>
+                            <constraint firstItem="1Zu-ER-10K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jsj-Uk-0I3"/>
                             <constraint firstItem="6SJ-Jy-2fc" firstAttribute="top" secondItem="1Zu-ER-10K" secondAttribute="bottom" constant="-90" id="ldg-sd-4Ej"/>
                             <constraint firstItem="MxX-Bo-qLx" firstAttribute="top" secondItem="6SJ-Jy-2fc" secondAttribute="bottom" constant="8" id="pG0-Td-BPp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6SJ-Jy-2fc" secondAttribute="trailing" constant="16" id="s5w-h6-f0o"/>

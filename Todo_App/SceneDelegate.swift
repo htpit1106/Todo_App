@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+      
+        
         
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardManager.shared.resignOnTouchOutside = true
@@ -21,6 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         UITextField.appearance().tintColor = UIColor.purple // màu con trỏ
 
+        
+        Task {
+            await restoreSessionIfNeeded()
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

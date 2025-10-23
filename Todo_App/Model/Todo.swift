@@ -15,6 +15,7 @@ class Todo: Codable, Identifiable {
     var content: String?
     var time: String?
     var isCompleted: Bool = false
+    var user_id: String?
     
     
     init(id: String? = nil, title: String? = nil, category: String? = nil, created_at: Date? = nil, content: String? = nil, time: String? ,  isCompleted: Bool) {

@@ -81,6 +81,7 @@ class HomeController: UIViewController {
         todoTableView.rx.modelSelected(Todo.self)
             .subscribe(onNext: { [weak self] todo in
                 guard let self = self else { return }
+                if todo.isCompleted { return }
                 if let vc = self.storyboard?.instantiateViewController(
                     withIdentifier: "AddTaskViewController"
                 ) as? AddTaskViewController {
